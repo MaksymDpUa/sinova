@@ -17,7 +17,7 @@ interface BreedPageProps {
 const BreedPage: React.FC<BreedPageProps> = ({ params }) => {
   const searchParams = useSearchParams();
   const type = searchParams.get("type") as "cat" | "dog" | null;
-const animalType = type === "cat" ? AnimalType.CAT : AnimalType.DOG;
+  const animalType = type === "cat" ? AnimalType.CAT : AnimalType.DOG;
   const [breedDetails, setBreedDetails] = useState<BreedDetails | null>(null);
   const [breedImages, setBreedImages] = useState<string[]>([]);
 
@@ -68,6 +68,7 @@ const animalType = type === "cat" ? AnimalType.CAT : AnimalType.DOG;
             fill
             className="rounded-lg object-cover"
             priority
+            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
           />
         </div>
         {animalType === AnimalType.DOG && breedDetails.breeds && (
@@ -80,11 +81,17 @@ const animalType = type === "cat" ? AnimalType.CAT : AnimalType.DOG;
       <section className="lg:col-span-2 bg-white p-4 rounded-lg shadow-md">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {breedImages.map((image, index) => (
-            <li key={index} className="w-full h-48 rounded-lg overflow-hidden">
-              <img
+            <li
+              key={index}
+              className="w-full h-48 rounded-lg overflow-hidden relative"
+            >
+              <Image
                 src={image}
                 alt={`Image ${index + 1}`}
-                className="w-full h-full object-cover"
+                fill
+                className="rounded-lg object-cover"
+                priority
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
               />
             </li>
           ))}
